@@ -3,10 +3,10 @@
 
 **다운로드**
 압축버전 [tabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
-
+[데모화면](http://blog.singihae.com)
 
 ## 사용하기
-`<head>`
+**<head>**
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="tabMenus.min.js"></script>
@@ -85,6 +85,22 @@ $(document).ready(function(){
 		event: 'mouseover'
 	});
 });
+```
+
+### 옵션
+* startItem
+* tabMenuClass
+* tabContsClass
+* activeClass
+* event
+
+***적용화면***
+```javascript
+startItem: 1, //처음 시작하는 탭
+tabMenuClass: 'ui_tabs_menu', // 탭 메뉴 클래스
+tabContsClass: 'ui_tabs_contents', //탭 컨텐츠 클래스
+activeClass: 'is-current', // 탭 메뉴 활성화 클래스
+event: 'click' // 탭 메뉴 이벤트
 ```
 
 ## 지원 브라우저
