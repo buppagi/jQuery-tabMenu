@@ -5,6 +5,6 @@
 
 ## 사용하는 방법 ##
 ```html
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;tabMenus.min.js&quot;&gt;&lt;/script&gt;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="tabMenus.min.js"></script>
 ```
