@@ -1,8 +1,9 @@
 # jQuery Tab Menu
 > 초보자들을 위한 Tab Menu 플로그인을 만들어봤습니다.
 
-**다운로드**
-압축버전 [tabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
+##다운로드
+[tabMenu.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.js)
+[tabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
 [데모화면](http://blog.singihae.com)
 
 ## 사용하기
@@ -88,19 +89,19 @@ $(document).ready(function(){
 ```
 
 ### 옵션
-* startItem
-* tabMenuClass
-* tabContsClass
-* activeClass
+* startItem - 처음 시작하는 탭
+* tabMenuClass - 탭 메뉴 클래스
+* tabContsClass - 탭 컨텐츠 클래스
+* activeClass - 탭 메뉴 활성화 클래스
 * event
 
-***적용화면***
+**적용화면**
 ```javascript
-startItem: 1, //처음 시작하는 탭
-tabMenuClass: 'ui_tabs_menu', // 탭 메뉴 클래스
-tabContsClass: 'ui_tabs_contents', //탭 컨텐츠 클래스
-activeClass: 'is-current', // 탭 메뉴 활성화 클래스
-event: 'click' // 탭 메뉴 이벤트
+startItem: 1,
+tabMenuClass: 'ui_tabs_menu',
+tabContsClass: 'ui_tabs_contents',
+activeClass: 'is-current',
+event: 'click'
 ```
 
 ## 지원 브라우저
