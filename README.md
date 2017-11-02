@@ -1,13 +1,11 @@
-# jQuery Tab Menu
-> 초보자들을 위한 Tab Menu 플로그인을 만들어봤습니다.
+# jQuery Tab Menu Plugins
+> 웹에서 자주 사용하는 Tab Menu를 초보자들을 위해 플로그인으로 만들었습니다.
 
 **다운로드**
 
 [tabMenu.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.js)
 
 [tabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
-
-[데모화면](http://blog.singihae.com/)
 
 ## 사용하기
 **<head>**
