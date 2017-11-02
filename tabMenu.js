@@ -13,7 +13,7 @@
       self.$selector = $(this);
       self.$menu = self.$selector.find('.' + settings.tabMenuClass);
       self.$contents = self.$selector.find('.' + settings.tabContsClass);
-      self._eAction = settings.event;
+      self._eAction = settings._event;
 
       self._create = function() { // 기본세팅
         $(self.$contents).css('display', 'none');
@@ -110,7 +110,7 @@
     tabMenuClass: 'ui_tabs_menu',
     tabContsClass: 'ui_tabs_contents',
     activeClass: 'is-current',
-    event: 'click' //mouseenter, mouseover
+    _event: 'click' //mouseenter, mouseover
   };
 
   $document.ready(function($){
