@@ -23,7 +23,7 @@
           _this.attr({
             'role': 'tab',
             'tabindex': -1,
-            'aria-controls': _this.find('> a').attr('href').replace(/\#/g,''),
+            'aria-controls': _this.find(settings.childSelector).attr('href').replace(/\#/g,''),
             'aria-selected': false,
             'aria-expanded': false
           }).find('> a').attr({
@@ -55,7 +55,7 @@
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find('> a').addClass(settings.activeClass);
+          }).find(settings.childSelector).addClass(settings.activeClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         } else {
           elem = self.$menu.find('> li:first').find('a').attr('href');
@@ -64,7 +64,7 @@
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find('> a').addClass(settings.activeClass);
+          }).find(settings.childSelector).addClass(settings.activeClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         }
 
@@ -110,6 +110,7 @@
     tabMenuClass: 'ui_tabs_menu',
     tabContsClass: 'ui_tabs_contents',
     activeClass: 'is-current',
+    childSelector: '> a',
     event: 'click' //mouseenter, mouseover
   };
 

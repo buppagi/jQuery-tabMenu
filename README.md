@@ -89,11 +89,45 @@ $(document).ready(function(){
 });
 ```
 
+### 선택자 변경하기
+**HTML**
+```html
+<div class="tab-menu" id="tabMenu4">
+	<ul class="ui_tabs_menu">
+		<li>
+			<h2><a href="#tabmenu3-1">탭 메뉴4-1</a></h2>
+		</li>
+		<li>
+			<h2><a href="#tabmenu3-2">탭 메뉴4-2</a></h2>
+		</li>
+		<li>
+			<h2><a href="#tabmenu3-3">탭 메뉴4-3</a></h2>
+		</li>
+		<li>
+			<h2><a href="#tabmenu3-4">탭 메뉴4-4</a></h2>
+		</li>
+	</ul>
+	<div class="ui_tabs_contents" id="tabmenu4-1">Test 4-1</div>
+	<div class="ui_tabs_contents" id="tabmenu4-2">Test 4-2</div>
+	<div class="ui_tabs_contents" id="tabmenu4-3">Test 4-3</div>
+	<div class="ui_tabs_contents" id="tabmenu4-3">Test 4-4</div>
+</div>
+```
+**JavaScript**
+```javascript
+$(document).ready(function(){
+	$('#tabMenu4').tabMenus({
+		childSelector: 'h2 > a'
+	});
+});
+```
+
 ### 옵션
 * startItem - 처음 시작하는 탭
 * tabMenuClass - 탭 메뉴 클래스
 * tabContsClass - 탭 컨텐츠 클래스
 * activeClass - 탭 메뉴 활성화 클래스
+* childSelector - 링크 선택자
 * event
 
 **적용화면**
@@ -102,6 +136,7 @@ startItem: 1,
 tabMenuClass: 'ui_tabs_menu',
 tabContsClass: 'ui_tabs_contents',
 activeClass: 'is-current',
+childSelector: '> a',
 event: 'click'
 ```
 
