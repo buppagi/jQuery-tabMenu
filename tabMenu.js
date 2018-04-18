@@ -23,10 +23,10 @@
           _this.attr({
             'role': 'tab',
             'tabindex': -1,
-            'aria-controls': _this.find(settings.childSelector).attr('href').replace(/\#/g,''),
+            'aria-controls': _this.find('a').attr('href').replace(/\#/g,''),
             'aria-selected': false,
             'aria-expanded': false
-          }).find(settings.childSelector).attr({
+          }).find('a').attr({
             'role': 'presentation',
             'tabindex': -1
           }).addClass('tabs-anchor');
@@ -55,7 +55,7 @@
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find(settings.childSelector).addClass(settings.activeClass);
+          }).find('a').addClass(settings.activeClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         } else {
           elem = self.$menu.find('> li:first').find('a').attr('href');
@@ -64,7 +64,7 @@
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find(settings.childSelector).addClass(settings.activeClass);
+          }).find('a').addClass(settings.activeClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         }
 
@@ -106,7 +106,7 @@
 
 
   $.fn.tabMenus.defaults = {
-    startItem: 1, //처음 시작하는 탭
+    startItem: 1, //처음 시작하는 탭 (only 숫자)
     tabMenuClass: 'ui_tabs_menu', // 탭 메뉴 클래스
     tabContsClass: 'ui_tabs_contents', // 탭 컨텐츠 클래스
     activeClass: 'is-current', // 탭 메뉴 활성화 클래스
