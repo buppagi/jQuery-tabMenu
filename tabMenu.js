@@ -26,7 +26,7 @@
             'aria-controls': _this.find(settings.childSelector).attr('href').replace(/\#/g,''),
             'aria-selected': false,
             'aria-expanded': false
-          }).find('> a').attr({
+          }).find(settings.childSelector).attr({
             'role': 'presentation',
             'tabindex': -1
           }).addClass('tabs-anchor');
@@ -106,11 +106,11 @@
 
 
   $.fn.tabMenus.defaults = {
-    startItem: 1,
-    tabMenuClass: 'ui_tabs_menu',
-    tabContsClass: 'ui_tabs_contents',
-    activeClass: 'is-current',
-    childSelector: '> a',
+    startItem: 1, //처음 시작하는 탭
+    tabMenuClass: 'ui_tabs_menu', // 탭 메뉴 클래스
+    tabContsClass: 'ui_tabs_contents', // 탭 컨텐츠 클래스
+    activeClass: 'is-current', // 탭 메뉴 활성화 클래스
+    childSelector: '> a', // 링크 클래스
     event: 'click' //mouseenter, mouseover
   };
 
