@@ -2,8 +2,7 @@
   "use strict";
   var $window = $(window),
       $document = $(document),
-      $body = $('body'),
-      $wrap = $('#wrap');
+      $body = $('body');
 
   $.fn.tabMenus = function(options){
     var settings = $.extend(true, {}, $.fn.tabMenus.defaults, options);
@@ -12,7 +11,8 @@
     return self.each(function(){
       self.$selector = $(this);
       self.$menu = self.$selector.find('.' + settings.tabMenuClass);
-      self.$contents = self.$selector.find('.' + settings.tabContsClass);
+      self.$wrap = self.$selector.find('.' + settings.tabContWrapClass + ':first');
+      self.$contents = self.$wrap.find('.' + settings.tabContsClass);
       self._eAction = settings.event;
 
       self._create = function() { // 기본세팅
@@ -107,10 +107,10 @@
 
   $.fn.tabMenus.defaults = {
     startItem: 1, //처음 시작하는 탭 (only 숫자)
-    tabMenuClass: 'ui_tabs_menu', // 탭 메뉴 클래스
-    tabContsClass: 'ui_tabs_contents', // 탭 컨텐츠 클래스
+    tabMenuClass: 'sgh-tab_menu', // 탭 메뉴 클래스
+    tabContWrapClass: 'sgh-tab_contents_wrap',
+    tabContsClass: 'sgh-tab_content', // 탭 컨텐츠 클래스
     activeClass: 'is-current', // 탭 메뉴 활성화 클래스
-    childSelector: '> a', // 링크 클래스
     event: 'click' //mouseenter, mouseover
   };
 
