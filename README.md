@@ -3,15 +3,15 @@
 
 **다운로드**
 
-[tabMenu.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.js)
+[sghTabMenus.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.js)
 
-[tabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
+[sghTabMenus.min.js](https://raw.githubusercontent.com/singihae/jQuery-tabMenu/master/tabMenu.min.js)
 
 ## 사용하기
 **<head>**
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="tabMenus.min.js"></script>
+<script src="sghTabMenus.min.js"></script>
 ```
 
 ## 예제
@@ -36,7 +36,7 @@
 **JavaScript**
 ```javascript
 $(document).ready(function(){
-	$('#tabMenu1').tabMenus();
+	$('#tabMenu1').sghTabMenus();
 });
 ```
 
@@ -61,7 +61,7 @@ $(document).ready(function(){
 **JavaScript**
 ```javascript
 $(document).ready(function(){
-	$('#tabMenu2').tabMenus({
+	$('#tabMenu2').sghTabMenus({
 		startItem: 2
 	});
 });
@@ -89,7 +89,7 @@ $(document).ready(function(){
 **JavaScript**
 ```javascript
 $(document).ready(function(){
-	$('#tabMenu3').tabMenus({
+	$('#tabMenu3').sghTabMenus({
 		event: 'mouseover'
 	});
 });

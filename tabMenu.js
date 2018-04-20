@@ -4,7 +4,7 @@
       $document = $(document),
       $body = $('body');
 
-  $.fn.tabMenus = function(options){
+  $.fn.sghTabMenus = function(options){
     var settings = $.extend(true, {}, $.fn.tabMenus.defaults, options);
     var self = this;
 
