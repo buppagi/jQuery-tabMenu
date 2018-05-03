@@ -90,7 +90,8 @@
               $( _this.attr('href') ).css('display', 'block').attr('aria-hidden', false).siblings('div' + ('.' + settings.tabContsClass) ).css('display', 'none').attr('aria-hidden', true);
             }
           }
-          e.preventDefault();
+          this.blur();
+          return false;
         });
       };
 
