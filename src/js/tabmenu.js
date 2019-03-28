@@ -1,29 +1,26 @@
-(function($){
+;(function (window, document, $) {
   "use strict";
-  var $window = $(window),
-      $document = $(document),
-      $body = $('body');
-
-  $.fn.sghTabMenus = function(options){
+  
+  // 전체 공통 탭 메뉴
+  $.fn.tabMenus = function (options) {
     var settings = $.extend(true, {}, $.fn.tabMenus.defaults, options);
     var self = this;
 
-    return self.each(function(){
+    return self.each(function () {
       self.$selector = $(this);
       self.$menu = self.$selector.find('.' + settings.tabMenuClass);
       self.$wrap = self.$selector.find('.' + settings.tabContWrapClass + ':first');
       self.$contents = self.$wrap.find('.' + settings.tabContsClass);
       self._eAction = settings.event;
 
-      self._create = function() { // 기본세팅
+      self._create = function () { // 기본세팅
         $(self.$contents).css('display', 'none');
         self.$menu.attr('role', 'tablist');
-        self.$menu.find('> li').each(function(idx, elem){
+        self.$menu.find('> li').each(function () {
           var _this = $(this);
           _this.attr({
             'role': 'tab',
             'tabindex': -1,
-            'aria-controls': _this.find('a').attr('href').replace(/\#/g,''),
             'aria-selected': false,
             'aria-expanded': false
           }).find('a').attr({
@@ -31,7 +28,7 @@
             'tabindex': -1
           }).addClass('tabs-anchor');
         });
-        self.$contents.each(function(idx){
+        self.$contents.each(function () {
           var _this = $(this);
           _this.attr({
             'role': 'tabpanel',
@@ -42,7 +39,7 @@
         self._isLocal();
       };
 
-      self._isLocal = function(){ //재설정
+      self._isLocal = function () { //재설정
         var elem;
         if (settings.startItem > 1) {
           elem = self.$menu.find('> li:nth-child(' + settings.startItem + ') ').find('a').attr('href');
@@ -71,12 +68,12 @@
         self.Action();
       };
 
-      self.Action = function() {
-        self.$menu.on(self._eAction, 'a', function(e){
+      self.Action = function () {
+        self.$menu.on(self._eAction, 'a', function (e) {
           var _this = $(this),
-          $target = _this.attr('href');
+            $target = '#' + self.$menu.find('> li').attr('aria-controls');
 
-          if(!_this.hasClass(settings.activeClass)) {
+          if (!_this.hasClass(settings.activeClass)) {
             _this.addClass(settings.activeClass).closest('li').attr({
               'tabindex': 0,
               'aria-selected': true,
@@ -86,17 +83,19 @@
               'aria-selected': false,
               'aria-expanded': false
             }).find('.' + settings.activeClass).removeClass(settings.activeClass);
-            if( $( _this.attr('href') ) !=='#' && $(_this.attr('href')) !== '' ) {
-              $( _this.attr('href') ).css('display', 'block').attr('aria-hidden', false).siblings('div' + ('.' + settings.tabContsClass) ).css('display', 'none').attr('aria-hidden', true);
+            if ($(_this.attr('href')) !== '#' || $(_this.attr('href')) !== '#none' || $(_this.attr('href')) !== '') {
+              $(_this.attr('href')).css('display', 'block').attr('aria-hidden', false).siblings('div' + ('.' + settings.tabContsClass)).css('display', 'none').attr('aria-hidden', true);
+            } else {
+              _this.attr('href', '#' + self.$menu.find('> li').attr('aria-controls'));
             }
           }
-          this.blur();
+
           return false;
         });
       };
 
-      self._init = function(){
-        if(!self.$menu.length) { return; }
+      self._init = function () {
+        if (!self.$menu.length) { return; }
         self._create();
       };
 
@@ -107,15 +106,11 @@
 
 
   $.fn.tabMenus.defaults = {
-    startItem: 1, //처음 시작하는 탭 (only 숫자)
-    tabMenuClass: 'sgh-tab_menu', // 탭 메뉴 클래스
-    tabContWrapClass: 'sgh-tab_contents_wrap',
-    tabContsClass: 'sgh-tab_content', // 탭 컨텐츠 클래스
-    activeClass: 'is-current', // 탭 메뉴 활성화 클래스
+    startItem: 1,
+    tabMenuClass: 'ui_tabs_menu',
+    tabContWrapClass: 'ui_tabs_contents_wrap',
+    tabContsClass: 'ui_tab_content',
+    activeClass: 'is-current',
     event: 'click' //mouseenter, mouseover
   };
-
-  $document.ready(function($){
-    Ui.init();
-  });
-})(jQuery);
+})(window, document, jQuery);

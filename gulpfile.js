@@ -1,47 +1,50 @@
-"use stric";
-
-var gulp = require('gulp'),
-		util 	= require('gulp-util'),
-		concat = require('gulp-concat'),
-		uglify = require('gulp-uglify'),
-		stripDebug	= require('gulp-strip-debug'),
-		plumber = require('gulp-plumber'),
-		rename = require('gulp-rename'),
-		sourcemaps = require('gulp-sourcemaps'),
-		bs = require('browser-sync').create(),
-		reload = bs.reload;
+"use strict";
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var jshint = require('gulp-jshint');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var stripDebug = require('gulp-strip-debug');
+var plumber = require('gulp-plumber');
+var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
+var bs = require('browser-sync').create();
+var reload = bs.reload;
 
 var errorHandler = function (error) {
-	console.error(error.message);
-	this.emit('end');
+  console.error(error.message);
+  this.emit('end');
 };
-
 var plumberOption = {
-	errorHandler: errorHandler
+  errorHandler: errorHandler
 };
-gulp.task('server', function() {
-	bs.init({
-		server: { baseDir: "./" },
-		ghostMode: { clicks: false, scroll: false}
-	});
-});
-gulp.task('js', function(){
- 	return gulp.src( 'tabMenu.js' )
- 		.pipe( sourcemaps.init() )
-		.pipe( plumber(plumberOption))
- 		.pipe( uglify( {mangle:{toplevel:true}} ) )
- 		.pipe(concat('tabMenu.min.js'))
- 		.pipe(sourcemaps.write('maps'))
- 		.pipe(gulp.dest( './' ))
- 		.pipe( bs.reload({stream: true}) );
+
+gulp.task('server', function () {
+  bs.init({
+    port: 8024,
+    server: { baseDir: "."},
+    ghostMode: { clicks: false, scroll: false }
+  });
 });
 
-gulp.task('watch', function() {
-	gulp.watch( 'tabMenu.js', ['js'] );
+gulp.task('js', function () {
+  return gulp.src('./src/js/*.js')
+    .pipe(plumber(plumberOption))
+    .pipe(sourcemaps.init({ loadMaps: true, debug: true }))
+    .pipe(jshint())
+    .pipe(uglify({ mangle: { toplevel: true } }))
+    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+    .pipe(rename({
+      dirname: "",
+      suffix: ".min"
+    }))
+    .pipe(sourcemaps.write('./maps/js'))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(bs.reload({ stream: true }));
 });
 
-gulp.task('default', [
-	'server',
-	'js',
-	'watch'
-]);
+gulp.task('watch', function(){
+  gulp.watch('./src/js/*.js', ['js']);
+});
+
+gulp.task('default', ['server', 'js']);
