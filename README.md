@@ -1,8 +1,8 @@
 # jQuery 플로그인 Tab Menu
-> 개인적으로 사용하려고 만들었다가 공유합니다. [이전 개인저장소](https://github.com/buppagi/jQuery-tabMenu)
+> 개인적으로 사용하려고 만들었다가 공유합니다. 
 
 ## 설치방법
-- [다운로드.zip](https://github.com/buppagistar/tabMenu/archive/master.zip) 및 [min 파일](https://raw.githubusercontent.com/buppagistar/tabMenu/master/dist/js/tabmenu.min.js)를 다운로드 받습니다.
+- [다운로드.zip](https://github.com/buppagi/jQuery-tabMenu/archive/master.zip) 및 [min 파일](https://raw.githubusercontent.com/buppagi/jQuery-tabMenu/master/dist/js/tabmenu.min.js)를 다운로드 받습니다.
 - `<head></head>`사이 또는 `<body>` 영역에 `<script src="tabMenu.min.js"></script>` 삽입하시면 됩니다.
 
 ## 사용하기
@@ -85,4 +85,4 @@ $(document).ready(function(){
 
 ## 마치며
 > 혼자 사용하고 연습하고 만들어봤던 플로그인을 공개합니다. 아직 미완성이라 안되는 것들이 있으니 참고부탁드립니다.
-> 피드백은 [이슈](https://github.com/buppagistar/tabMenu/issues)에 해주시면 감사하겠습니다.
+> 피드백은 [이슈](https://github.com/buppagi/tabMenu/issues)에 해주시면 감사하겠습니다.
