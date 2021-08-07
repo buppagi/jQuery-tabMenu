@@ -1,34 +1,48 @@
-"use strict";
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var jshint = require('gulp-jshint');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var stripDebug = require('gulp-strip-debug');
-var plumber = require('gulp-plumber');
-var rename = require('gulp-rename');
-var sourcemaps = require('gulp-sourcemaps');
-var bs = require('browser-sync').create();
-var reload = bs.reload;
+/**************** 환경설정 ****************/
 
-var errorHandler = function (error) {
-  console.error(error.message);
-  this.emit('end');
-};
-var plumberOption = {
-  errorHandler: errorHandler
-};
 
-gulp.task('server', function () {
-  bs.init({
+// 모듈
+const { src, dest, task, watch, series, parallel } = require('gulp');
+const del = require('del');
+const options = require('./package.json').options;
+const browserSync = require('browser-sync').create();
+const gutil = require('gulp-util');
+const jshint = require('gulp-jshint');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const stripDebug = require('gulp-strip-debug');
+const plumber = require('gulp-plumber');
+const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
+const logSymbols = require('log-symbols');
+
+task('livepreview', (done) => {
+  browserSync.init({
     port: 8024,
-    server: { baseDir: "."},
+    server: { baseDir: "./"},
     ghostMode: { clicks: false, scroll: false }
   });
+  done();
 });
 
-gulp.task('js', function () {
-  return gulp.src('./src/js/*.js')
+function previewReload(done) {
+  console.log("\n\t" + logSymbols.info, "Reloading Preview.\n");
+  browserSync.reload();
+  done();
+}
+
+// Error
+const onError = (error) => {
+  console.log([error.message, error.plugin]);
+};
+
+const plumberOption = {
+  errorHandler: onError
+};
+
+
+task('scripts', function () {
+  return src('./src/js/*.js')
     .pipe(plumber(plumberOption))
     .pipe(sourcemaps.init({ loadMaps: true, debug: true }))
     .pipe(jshint())
@@ -39,12 +53,20 @@ gulp.task('js', function () {
       suffix: ".min"
     }))
     .pipe(sourcemaps.write('./maps/js'))
-    .pipe(gulp.dest('./dist/js'))
-    .pipe(bs.reload({ stream: true }));
+    .pipe(dest('./dist/js'))
+
+  done();
 });
 
-gulp.task('watch', function(){
-  gulp.watch('./src/js/*.js', ['js']);
+task('watch-changes', (done) => {
+  watch(options.paths.src.js + '/**/*', series('js', previewReload));
+  done();
 });
 
-gulp.task('default', ['server', 'js']);
+task('development', series('scripts'), (done) => {
+    console.log("\n\t" + logSymbols.info, "npm run dev is complete. Files are located at ./dist\n");
+  done();
+});
+
+
+exports.default = series('development', 'livepreview', 'watch-changes');
