@@ -1,6 +1,6 @@
 {
   "name": "jquery-tab-menu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "> jQuery Tab Menu",
   "main": "main.html",
   "repository": {
@@ -15,14 +15,8 @@
   "options": {
     "paths": {
       "root": "./",
-      "src": {
-        "base": "./src",
-        "js": "./src/js"
-      },
-      "dist": {
-        "base": "./dist",
-        "js": "./dist/js"
-      }
+      "uncompressed": "./uncompressed",
+      "minified": "./minified"
     }
   },
   "devDependencies": {

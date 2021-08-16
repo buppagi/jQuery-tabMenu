@@ -42,7 +42,7 @@ const plumberOption = {
 
 
 task('scripts', function () {
-  return src('./src/js/*.js')
+  return src(options.paths.uncompressed)
     .pipe(plumber(plumberOption))
     .pipe(sourcemaps.init({ loadMaps: true, debug: true }))
     .pipe(jshint())
@@ -53,13 +53,13 @@ task('scripts', function () {
       suffix: ".min"
     }))
     .pipe(sourcemaps.write('./maps/js'))
-    .pipe(dest('./dist/js'))
+    .pipe(dest(options.paths.minified))
 
   done();
 });
 
 task('watch-changes', (done) => {
-  watch(options.paths.src.js + '/**/*', series('js', previewReload));
+  watch(options.paths.uncompressed + '/**/*', series('js', previewReload));
   done();
 });
 
