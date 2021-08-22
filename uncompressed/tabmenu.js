@@ -3,20 +3,41 @@
   
   // 전체 공통 탭 메뉴
   $.fn.tabMenus = function (options) {
-    var settings = $.extend(true, {}, $.fn.tabMenus.defaults, options);
+    var settings = $.extend({}, $.fn.tabMenus.defaults, options || {});
     var self = this;
 
     return self.each(function () {
-      self.$selector = $(this);
-      self.$menu = self.$selector.find('.' + settings.tabMenuClass);
-      self.$wrap = self.$selector.find('.' + settings.tabContWrapClass + ':first');
-      self.$contents = self.$wrap.find('.' + settings.tabContsClass);
-      self._eAction = settings.event;
+      var $selector = $(this),
+          $menu = $selector.find('> .' + settings.tabMenuClass),
+          $wrap = $selector.find('> .' + settings.tabContWrapClass + ':first'),
+          $contents = $wrap.find('.' + settings.tabContsClass),
+          activateClass = settings.activeClass,
+          _eAction = settings.event;
+        
+      var _isHref = function() {
+        var rhash = /#.*$/;
 
-      self._create = function () { // 기본세팅
-        $(self.$contents).css('display', 'none');
-        self.$menu.attr('role', 'tablist');
-        self.$menu.find('> li').each(function () {
+        return function(anchor)  {
+          var anchorUrl, locationUrl;
+          
+          anchorUrl = anchor.href.replace(rhash, '');
+          locationUrl = location.href.replace(rhash, '');
+
+          try {
+            anchorUrl = decodeURIComponent(anchorUrl);
+          } catch (error) {}
+          try {
+            locationUrl = decodeURIComponent(locationUrl);
+          } catch(error) {}
+
+          return anchor.hash.length > 1 && anchorUrl === locationUrl;
+        };
+      };
+
+      var _create = function () { // 기본세팅
+        $($contents).css('display', 'none');
+        $menu.attr('role', 'tablist');
+        $menu.find('> li').each(function () {
           var _this = $(this);
           _this.attr({
             'role': 'tab',
@@ -28,7 +49,7 @@
             'tabindex': -1
           }).addClass('tabs-anchor');
         });
-        self.$contents.each(function () {
+        $contents.each(function () {
           var _this = $(this);
           _this.attr({
             'role': 'tabpanel',
@@ -36,45 +57,45 @@
           });
         });
 
-        self._isLocal();
+        _isLocal();
       };
 
-      self._isLocal = function () { //재설정
+      var _isLocal = function () { //재설정
         var elem;
         if (settings.startItem > 1) {
-          elem = self.$menu.find('> li:nth-child(' + settings.startItem + ') ').find('a').attr('href');
+          elem = $menu.find('> li:nth-child(' + settings.startItem + ') ').find('a').attr('href');
 
-          self.$menu.find('.' + settings.activeClass).attr({
+          $menu.find('.' + activateClass).attr({
             'aria-selected': false,
             'aria-expanded': false
-          }).removeClass(settings.activeClass);
-          self.$menu.find('> li:nth-child(' + settings.startItem + ') ').attr({
+          }).removeClass(activateClass);
+          $menu.find('> li:nth-child(' + settings.startItem + ') ').attr({
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find('a').addClass(settings.activeClass);
+          }).find('a').addClass(activateClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         } else {
-          elem = self.$menu.find('> li:first').find('a').attr('href');
+          elem = $menu.find('> li:first').find('a').attr('href');
 
-          self.$menu.find('> li:first').attr({
+          $menu.find('> li:first').attr({
             'tabindex': 0,
             'aria-selected': true,
             'aria-expanded': true
-          }).find('a').addClass(settings.activeClass);
+          }).find('a').addClass(activateClass);
           $(elem).css('display', 'block').attr('aria-hidden', false);
         }
 
-        self.Action();
+        _eventActive();
       };
 
-      self.Action = function () {
-        self.$menu.on(self._eAction, 'a', function (e) {
+      var _eventActive = function () {
+        $menu.on(_eAction, 'a', function (e) {
           var _this = $(this),
-            $target = '#' + self.$menu.find('> li').attr('aria-controls');
+            $target = '#' + $menu.find('> li').attr('aria-controls');
 
-          if (!_this.hasClass(settings.activeClass)) {
-            _this.addClass(settings.activeClass).closest('li').attr({
+          if (!_this.hasClass(activateClass)) {
+            _this.addClass(activateClass).closest('li').attr({
               'tabindex': 0,
               'aria-selected': true,
               'aria-expanded': true
@@ -82,11 +103,11 @@
               'tabindex': -1,
               'aria-selected': false,
               'aria-expanded': false
-            }).find('.' + settings.activeClass).removeClass(settings.activeClass);
+            }).find('.' + activateClass).removeClass(activateClass);
             if ($(_this.attr('href')) !== '#' || $(_this.attr('href')) !== '#none' || $(_this.attr('href')) !== '') {
               $(_this.attr('href')).css('display', 'block').attr('aria-hidden', false).siblings('div' + ('.' + settings.tabContsClass)).css('display', 'none').attr('aria-hidden', true);
             } else {
-              _this.attr('href', '#' + self.$menu.find('> li').attr('aria-controls'));
+              _this.attr('href', $target);
             }
           }
 
@@ -94,13 +115,13 @@
         });
       };
 
-      self._init = function () {
-        if (!self.$menu.length) { return; }
-        self._create();
+      var _init = function () {
+        if (!$menu.length) { return; }
+        _create();
       };
 
 
-      self._init();
+      _init();
     });
   };
 
